@@ -8,43 +8,42 @@ import { useNavigate, useParams } from "react-router-dom";
 
 
 
-const EditarClientes = () => {
+const EditarProductos = () => {
 
-    const [ nombres, setNombres] = useState('');
-    const [ apellidos, setApellidos] = useState('');
-    const [ cedula, setCedula] = useState('');
-    const [ correo, setCorreo] = useState('');
-    const [ telefono, setTelefono] =useState('');
-    const [ direccion, setDireccion] = useState('');
+    const [ producto, setProducto] = useState('');
+    const [ referencia, setReferencia] = useState('');
+    const [ talla, setTalla] = useState('');
+    const [ color, setColor] = useState('');
+    const [ estilo, setEstilo] =useState('');
     const navigate = useNavigate();
     const {id} = useParams();
 
     //funcion actualizar
-    const modificarCliente = async (e) => {
+    const modificarProducto = async (e) => {
         e.preventDefault()
-        await APIInvoke.invokePUT(`/api/clientes/ ${id}`, {
-            nombres:nombres, 
-            apellidos:apellidos, 
-            cedula:cedula, 
-            correo:correo, 
-            telefono:telefono, 
-            direccion:direccion,
+        await APIInvoke.invokePUT(`/api/productos/${id}`, {
+            producto:producto, 
+            referencia:referencia, 
+            talla:talla, 
+            color:color, 
+            estilo:estilo, 
+            
         })
         navigate('/clientes')
     }
     useEffect( () =>{
-            getClientesByID()
+            getProductosByID()
     // eslint-disable-next-line        
     }, []);
 
-    const getClientesByID = async () =>{
-       const resp = await APIInvoke.invokeGET(`/api/clientes/ ${id}` )
-       setNombres(resp.nombres)
-       setApellidos(resp.apellidos)
-       setCedula(resp.cedula)
-       setCorreo(resp.correo)
-       setTelefono(resp.telefono)
-       setDireccion(resp.direccion)
+    const getProductosByID = async () =>{
+       const resp = await APIInvoke.invokePUT(`/api/productos/${id}` )
+       setProducto(resp.producto)
+       setReferencia(resp.referencia)
+       setTalla(resp.talla)
+       setColor(resp.color)
+       setEstilo(resp.estilo)
+     
 
     }
 
@@ -57,7 +56,7 @@ const EditarClientes = () => {
 
         <ContentHeader
             titulo={"Editar clientes"}
-            breadCrumb1={"Listado de clientes"}
+            breadCrumb1={"Listado de productos"}
             breadCrumb2={"editar"}
             ruta1={"/clientes"}
         />
@@ -80,18 +79,18 @@ const EditarClientes = () => {
                     </div>
 
                     <div className="card-body"></div>
-                    <form onSubmit={modificarCliente}>
+                    <form onSubmit={modificarProducto}>
 
                         <div className="card_body">
                             <div className="form-group">
-                                <label htmlFor="nombres">Nombres</label>
+                                <label htmlFor="producto">Producto</label>
                                 <input type="text"
                                 className="form-control"
-                                id='nombres'
-                                name='nombres'
-                                placeholder="Ingrese los nombres del cliente"
-                                value={nombres}
-                                onChange={(e) => setNombres(e.target.value) }
+                                id='producto'
+                                name='producto'
+                                placeholder="Ingrese el nombre del producto"
+                                value={producto}
+                                onChange={(e) => setProducto(e.target.value) }
                                 required
                                 />
                                 </div>
@@ -104,14 +103,14 @@ const EditarClientes = () => {
 
                         <div className="card_body">
                             <div className="form-group">
-                                <label htmlFor="apellidos">Apellidos</label>
+                                <label htmlFor="referecia">Referencia</label>
                                 <input type="text"
                                 className="form-control"
-                                id='apellidos'
-                                name='apellidos'
-                                placeholder="Ingrese el apellido del cliente"
-                                value={apellidos}
-                                onChange={(e) => setApellidos(e.target.value) } 
+                                id='referencia'
+                                name='referencia'
+                                placeholder="Ingrese la referencia del producto"
+                                value={referencia}
+                                onChange={(e) => setReferencia(e.target.value) } 
                                 required
                                 />
                                 </div>
@@ -124,14 +123,14 @@ const EditarClientes = () => {
 
                         <div className="card_body">
                             <div className="form-group">
-                                <label htmlFor="cedula">Cedula</label>
+                                <label htmlFor="talla">Talla</label>
                                 <input type="number"
                                 className="form-control"
-                                id='cedula'
-                                name='cedula'
-                                placeholder="Ingrese la cedula del cliente"
-                                value={cedula}
-                                onChange={(e) => setCedula(e.target.value) }
+                                id='talla'
+                                name='talla'
+                                placeholder="Ingrese la talla del producto"
+                                value={talla}
+                                onChange={(e) => setTalla(e.target.value) }
                                 required
                                 />
                                 </div>
@@ -144,14 +143,14 @@ const EditarClientes = () => {
 
                         <div className="card_body">
                             <div className="form-group">
-                                <label htmlFor="correo">Correo</label>
+                                <label htmlFor="color">Color</label>
                                 <input type="text"
                                 className="form-control"
-                                id='correo'
-                                name='correo'
-                                placeholder="Ingrese correo del cliente"
-                                value={correo}
-                                onChange={(e) => setCorreo(e.target.value) } 
+                                id='color'
+                                name='color'
+                                placeholder="Ingrese el color del producto"
+                                value={color}
+                                onChange={(e) => setColor(e.target.value) } 
                                 required
                                 />
                                 </div>
@@ -164,34 +163,14 @@ const EditarClientes = () => {
 
                         <div className="card_body">
                             <div className="form-group">
-                                <label htmlFor="telefono">Telefono</label>
-                                <input type="number"
-                                className="form-control"
-                                id='telefono'
-                                name='telefono'
-                                placeholder="<Igrese un numero de telefono del cliente"
-                                value={telefono}
-                                onChange={(e) => setTelefono(e.target.value) }
-                                required
-                                />
-                                </div>
-                        </div>
-                        <div className="imput-group-append">
-                            <div className="imput-group-text">
-                                <span className="fas fa-envelope"/>
-                            </div>
-                        </div>
-
-                        <div className="card_body">
-                            <div className="form-group">
-                                <label htmlFor="direccion">Direccion</label>
+                                <label htmlFor="estilo">Estilo</label>
                                 <input type="text"
                                 className="form-control"
-                                id='direccion'
-                                name='direccion'
-                                placeholder="Ingrese la direccion del cliente"
-                                value={direccion}
-                                onChange={(e) => setDireccion(e.target.value) } 
+                                id='estilo'
+                                name='estilo'
+                                placeholder="<Igrese el estilo del producto"
+                                value={estilo}
+                                onChange={(e) => setEstilo(e.target.value) }
                                 required
                                 />
                                 </div>
@@ -201,6 +180,8 @@ const EditarClientes = () => {
                                 <span className="fas fa-envelope"/>
                             </div>
                         </div>
+
+                        
                         <div className="card-footer">
                             <button type="submit" className="btn btn-primary"> Editar</button>
                         </div>

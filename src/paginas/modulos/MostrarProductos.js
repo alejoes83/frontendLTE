@@ -10,11 +10,11 @@ import swal from 'sweetalert';
 
 const MostrarProductos = () => {
 
-    const [productos, setProductos] = useState([])
+    const [producto, setProducts] = useState([])
 
     const getProductos = async () => {
         const response = await APIInvoke.invokeGET('/api/productos');
-        setProductos(response.productos);
+        setProducts(response.products);
     }
 
     useEffect(() => {
@@ -111,16 +111,16 @@ const MostrarProductos = () => {
 
                                 <tbody>
 
-                                    {productos.map((producto, index) =>(
+                                {producto.map((cliente, index) =>(
                                         <tr key={index}>
-                                            <td> {producto.producto}</td>
-                                            <td> {producto.referencia}</td>
-                                            <td> {producto.talla}</td>
-                                            <td> {producto.color}</td>
-                                            <td> {producto.estilo}</td>
+                                            <td> {cliente.producto}</td>
+                                            <td> {cliente.referencia}</td>
+                                            <td> {cliente.talla}</td>
+                                            <td> {cliente.color}</td>
+                                            <td> {cliente.estilo}</td>
                                             <td>
-                                            <Link to={`/productos/editar${producto._id}`} className='btn btn-sm btn-warning'>Edit</Link>
-                                            <button onClick={(e) => eliminarProducto(e, producto._id)} className='btn btn-sm btn-danger'>Del</button>
+                                            <Link to={`/clientes/editar${cliente._id}`} className='btn btn-sm btn-warning'>Edit</Link>
+                                            <button onClick={(e) => eliminarProducto(e, cliente._id)} className='btn btn-sm btn-danger'>Del</button>
                                             </td>
                                         </tr>
                                     ))}

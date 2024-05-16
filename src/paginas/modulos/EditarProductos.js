@@ -195,4 +195,4 @@ const EditarProductos = () => {
   )
 }
 
-export default EditarClientes
+export default EditarProductos
